@@ -38,5 +38,31 @@ class MainApp(App):
         current= self.solution.text
         button_text= instance.text 
         
+        if button_text== "C": #o usuario precionando o c limparar o arquivo solution
+            self.solution.text=""
+        else:
+            if current and (
+                self.last_was_operator and button_text in self.operators):  
+                #evita de colocar dois operadores 1*/
+                return
+            elif current== "" and button_text in self.operators:
+                #verifica se o primeiro caractere é um operador se for nao sera atualizado.
+                return
+            else:
+                new_text= current+ button_text #se nenhuma causa for atendida atualiza o solution
+                self.solution.text= new_text
+        self.last_button= button_text # define o ultimo botao pressionado
+        self.last_was_operator= self.last_button in self.operators # define True or False dependendo de ser ou nao um caractere de operador
+        
+    def on_solution(self, instance):
+        
+        text= self.solution.text
+        if text:
+            solution= str(eval(self.solution.text))
+            self.solution.text= solution                
+                
+                    
+            
+        
                      
             
